@@ -7,11 +7,13 @@ import {
 import { globalErrorHandling } from './middleware/index.js'
 import { bootstrapDB } from './DB/connection.db.js'
 import { PORT } from './config.js'
-
+import cors from 'cors'
 
 const app = express()
 
 bootstrapDB(app, PORT)
+
+app.use(cors())
 
 app.use(express.json())
 
@@ -28,16 +30,3 @@ app.all("{/*dummy}", (req, res) =>
 )
 
 app.use(globalErrorHandling)
-
-
-// to get ENC_KEY
-/*
-import crypto from 'node:crypto'
-console.log(crypto.randomBytes(16).toString("hex"));   //  ENC_KEY=90acb7730ed7ba7ae2fb71cc0f2fc0bd => put it in .env.development
-*/ 
-
-// for  an experience
-/*
-const cipher = await encryption("lol");
-const plain = await decryption(cipher);
-*/ 

@@ -48,8 +48,8 @@ export const findById = async ({
     if (options.select) {
         doc.select(options.select)
     }
-    if (options.populate) {
-        doc.populate(options.populate);
+    if (options.select) {
+        doc.select(options.select);
     }
     if (options.lean) {
         doc.lean(options.lean);

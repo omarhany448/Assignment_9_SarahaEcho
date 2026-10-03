@@ -32,7 +32,22 @@ export const NotfoundException = (message = "Notfound" , issues = {})=> {
 }
 
 
-export const UnautharizedException = (message = "Unautharized" , issues = {})=> {
+export const BadException = (
+    message = "Bad request exception",
+    issues = undefined
+) => {
+    return ApplicationException({
+        message,
+        options: {
+            cause: {
+                status: 400,
+                issues
+            }
+        }
+    })
+}
+
+export const UnauthorizedException = (message = "Unautharized" , issues = {})=> {
     return ApplicationException({
         message,
         options: {

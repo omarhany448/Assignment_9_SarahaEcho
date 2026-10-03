@@ -1,5 +1,5 @@
 import mongoose, { Types } from "mongoose";
-import { GenderEnum } from "../../common/enum/index.js";
+import { GenderEnum, ProviderEnum, RoleEnum } from "../../common/enum/index.js";
 
 const userSchema = new mongoose.Schema({
     firstName: {
@@ -24,7 +24,9 @@ const userSchema = new mongoose.Schema({
 
     password: {
         type: String,
-        required: true
+        required: function () {
+            return this.provider == ProviderEnum.SYSTEM
+        }
     },
 
     phone: String,
@@ -37,7 +39,18 @@ const userSchema = new mongoose.Schema({
         type: Number,
         enum: Object.values(GenderEnum),
         default: GenderEnum.MALE
-    }
+    },
+    role : {
+        type: Number,
+        default: RoleEnum.USER,
+        enum: Object.values(RoleEnum)
+    },
+
+    provider : {
+        type: Number,
+        default: ProviderEnum.SYSTEM,
+        enum: Object.values(ProviderEnum)
+    },
 
 }, {
     timestamps:true,
